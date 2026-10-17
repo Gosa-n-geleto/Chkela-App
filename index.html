@@ -30,34 +30,24 @@
             background-color: #07060a;
             color: #f8fafc;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            overflow-x: hidden;
         }
-        .ambient-glow-1 {
-            position: absolute;
-            top: 10%;
-            left: 20%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(7, 6, 10, 0) 70%);
-            pointer-events: none;
-            z-index: 0;
-        }
-        .ambient-glow-2 {
-            position: absolute;
-            top: 45%;
-            right: 10%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(167, 139, 250, 0.1) 0%, rgba(7, 6, 10, 0) 70%);
+        /* Canvas background for animated moving stars & cosmic dust */
+        #cosmic-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             pointer-events: none;
             z-index: 0;
         }
     </style>
 </head>
-<body class="relative min-h-screen overflow-x-hidden selection:bg-purple-500 selection:text-white">
+<body class="relative min-h-screen selection:bg-purple-500 selection:text-white">
 
-    <!-- Cosmic Background Lighting -->
-    <div class="ambient-glow-1"></div>
-    <div class="ambient-glow-2"></div>
+    <!-- Animated Cosmic Starfield & Nebula Canvas Background -->
+    <canvas id="cosmic-canvas"></canvas>
 
     <!-- Navigation Header -->
     <header class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between relative z-50">
@@ -79,9 +69,9 @@
     </header>
 
     <!-- LANDING PAGE VIEW -->
-    <div id="view-landing" class="space-y-16">
+    <div id="view-landing" class="relative z-10 space-y-16">
         <!-- HERO SECTION -->
-        <section class="max-w-7xl mx-auto px-6 pt-12 pb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+        <section class="max-w-7xl mx-auto px-6 pt-12 pb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div class="lg:col-span-7 space-y-8">
                 <div class="space-y-4">
                     <h1 class="text-5xl sm:text-7xl font-extrabold tracking-tight text-white leading-[1.1]">
@@ -124,7 +114,7 @@
 
             <!-- Phone Mockup Preview -->
             <div class="lg:col-span-5 flex justify-center">
-                <div class="w-[310px] h-[630px] bg-neutral-950 border-[8px] border-neutral-800 rounded-[45px] shadow-2xl relative overflow-hidden flex flex-col justify-between p-4">
+                <div class="w-[310px] h-[630px] bg-neutral-950/90 border-[8px] border-neutral-800 rounded-[45px] shadow-2xl relative overflow-hidden flex flex-col justify-between p-4 backdrop-blur-md">
                     <div>
                         <div class="flex justify-between items-center text-xs text-slate-400 px-2 pt-1">
                             <span>9:41</span>
@@ -162,7 +152,7 @@
         </section>
 
         <!-- SCHOOLS PARTNERSHIP MARQUEE -->
-        <section class="py-12 border-y border-white/5 bg-neutral-950/40">
+        <section class="py-12 border-y border-white/5 bg-neutral-950/60 backdrop-blur-sm">
             <div class="max-w-7xl mx-auto px-6 text-center space-y-8">
                 <p class="text-xs uppercase tracking-widest text-slate-500 font-semibold">Our students come from these schools</p>
                 <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4">
@@ -185,16 +175,16 @@
                 <p class="text-slate-400 text-base mt-4">Every tool in Chkela is built around one idea: put your energy where it counts for exam day.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-neutral-900/60 border border-white/10 p-8 rounded-3xl space-y-3"><span class="text-xs font-mono text-purple-400 font-bold">01</span><h3 class="text-xl font-bold text-white">Practice what the exam actually asks</h3><p class="text-slate-400 text-sm">Drill real NEAEA and Grade 12 past papers.</p></div>
-                <div class="bg-neutral-900/60 border border-white/10 p-8 rounded-3xl space-y-3"><span class="text-xs font-mono text-purple-400 font-bold">02</span><h3 class="text-xl font-bold text-white">Fix weak spots, skip the rest</h3><p class="text-slate-400 text-sm">Target topics costing you marks.</p></div>
-                <div class="bg-neutral-900/90 border border-purple-500/30 p-8 rounded-3xl space-y-3 shadow-xl"><span class="text-xs font-mono text-purple-400 font-bold">03</span><h3 class="text-xl font-bold text-white">Short drills that compound</h3><p class="text-slate-400 text-sm">Daily quizzes keep knowledge sharp.</p></div>
-                <div class="bg-neutral-900/60 border border-white/10 p-8 rounded-3xl space-y-3"><span class="text-xs font-mono text-purple-400 font-bold">04</span><h3 class="text-xl font-bold text-white">Get unstuck in seconds</h3><p class="text-slate-400 text-sm">Ask the in-app AI tutor anytime.</p></div>
+                <div class="bg-neutral-900/60 border border-white/10 p-8 rounded-3xl space-y-3 backdrop-blur-md"><span class="text-xs font-mono text-purple-400 font-bold">01</span><h3 class="text-xl font-bold text-white">Practice what the exam actually asks</h3><p class="text-slate-400 text-sm">Drill real NEAEA and Grade 12 past papers.</p></div>
+                <div class="bg-neutral-900/60 border border-white/10 p-8 rounded-3xl space-y-3 backdrop-blur-md"><span class="text-xs font-mono text-purple-400 font-bold">02</span><h3 class="text-xl font-bold text-white">Fix weak spots, skip the rest</h3><p class="text-slate-400 text-sm">Target topics costing you marks.</p></div>
+                <div class="bg-neutral-900/90 border border-purple-500/30 p-8 rounded-3xl space-y-3 shadow-xl backdrop-blur-md"><span class="text-xs font-mono text-purple-400 font-bold">03</span><h3 class="text-xl font-bold text-white">Short drills that compound</h3><p class="text-slate-400 text-sm">Daily quizzes keep knowledge sharp.</p></div>
+                <div class="bg-neutral-900/60 border border-white/10 p-8 rounded-3xl space-y-3 backdrop-blur-md"><span class="text-xs font-mono text-purple-400 font-bold">04</span><h3 class="text-xl font-bold text-white">Get unstuck in seconds</h3><p class="text-slate-400 text-sm">Ask the in-app AI tutor anytime.</p></div>
             </div>
         </section>
     </div>
 
-    <!-- FULL APP PORTAL VIEW (Dashboard, Vault, Quiz, AI, Leaderboard) -->
-    <div id="view-app" class="hidden max-w-7xl mx-auto px-6 py-8">
+    <!-- FULL APP PORTAL VIEW -->
+    <div id="view-app" class="hidden relative z-10 max-w-7xl mx-auto px-6 py-8">
         <div class="flex items-center justify-between mb-8 bg-neutral-900/80 border border-white/10 p-4 rounded-2xl backdrop-blur-md">
             <div class="flex items-center space-x-3 overflow-x-auto">
                 <button onclick="switchAppTab('dashboard')" id="app-tab-dashboard" class="app-nav px-4 py-2 rounded-xl text-xs font-bold transition bg-purple-600 text-white">Dashboard</button>
@@ -209,10 +199,10 @@
         <!-- APP TAB 1: DASHBOARD -->
         <div id="content-dashboard" class="app-content space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div class="bg-neutral-900 border border-white/10 p-5 rounded-2xl"><p class="text-xs text-slate-400">Completed Quizzes</p><h3 class="text-3xl font-bold mt-1 text-white">142</h3></div>
-                <div class="bg-neutral-900 border border-white/10 p-5 rounded-2xl"><p class="text-xs text-slate-400">Average Exam Score</p><h3 class="text-3xl font-bold mt-1 text-purple-400">84.6%</h3></div>
-                <div class="bg-neutral-900 border border-white/10 p-5 rounded-2xl"><p class="text-xs text-slate-400">Offline Vault Size</p><h3 class="text-3xl font-bold mt-1 text-emerald-400">48.2 MB</h3></div>
-                <div class="bg-neutral-900 border border-white/10 p-5 rounded-2xl"><p class="text-xs text-slate-400">National Rank</p><h3 class="text-3xl font-bold mt-1 text-amber-400">Top 0.1%</h3></div>
+                <div class="bg-neutral-900/80 border border-white/10 p-5 rounded-2xl backdrop-blur-md"><p class="text-xs text-slate-400">Completed Quizzes</p><h3 class="text-3xl font-bold mt-1 text-white">142</h3></div>
+                <div class="bg-neutral-900/80 border border-white/10 p-5 rounded-2xl backdrop-blur-md"><p class="text-xs text-slate-400">Average Exam Score</p><h3 class="text-3xl font-bold mt-1 text-purple-400">84.6%</h3></div>
+                <div class="bg-neutral-900/80 border border-white/10 p-5 rounded-2xl backdrop-blur-md"><p class="text-xs text-slate-400">Offline Vault Size</p><h3 class="text-3xl font-bold mt-1 text-emerald-400">48.2 MB</h3></div>
+                <div class="bg-neutral-900/80 border border-white/10 p-5 rounded-2xl backdrop-blur-md"><p class="text-xs text-slate-400">National Rank</p><h3 class="text-3xl font-bold mt-1 text-amber-400">Top 0.1%</h3></div>
             </div>
         </div>
 
@@ -224,7 +214,7 @@
 
         <!-- APP TAB 3: QUIZ SIMULATOR -->
         <div id="content-quiz" class="app-content hidden space-y-6">
-            <div id="quiz-setup" class="max-w-xl mx-auto bg-neutral-900 border border-white/10 p-8 rounded-3xl space-y-6">
+            <div id="quiz-setup" class="max-w-xl mx-auto bg-neutral-900/90 border border-white/10 p-8 rounded-3xl space-y-6 backdrop-blur-md">
                 <h2 class="text-2xl font-bold text-white text-center">Entrance Quiz Simulator</h2>
                 <div class="space-y-4">
                     <div>
@@ -243,8 +233,7 @@
                 <button onclick="startQuizSession()" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-semibold py-3.5 rounded-xl transition">Start Quiz</button>
             </div>
 
-            <!-- Active Quiz -->
-            <div id="quiz-active" class="hidden max-w-2xl mx-auto bg-neutral-900 border border-white/10 p-8 rounded-3xl space-y-6">
+            <div id="quiz-active" class="hidden max-w-2xl mx-auto bg-neutral-900/90 border border-white/10 p-8 rounded-3xl space-y-6 backdrop-blur-md">
                 <div class="flex justify-between items-center border-b border-white/10 pb-4">
                     <span id="quiz-badge" class="text-xs bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full border border-purple-500/30">Mathematics</span>
                     <span id="quiz-progress-text" class="text-sm font-medium text-slate-400">Question 1 of 2</span>
@@ -262,7 +251,7 @@
         <!-- APP TAB 4: AI STUDY ASSISTANT -->
         <div id="content-ai" class="app-content hidden space-y-4 h-[600px] flex flex-col">
             <h2 class="text-2xl font-bold text-white">Chkela AI Study Assistant</h2>
-            <div class="flex-1 bg-neutral-900 border border-white/10 rounded-3xl flex flex-col overflow-hidden">
+            <div class="flex-1 bg-neutral-900/90 border border-white/10 rounded-3xl flex flex-col overflow-hidden backdrop-blur-md">
                 <div id="chat-messages" class="flex-1 p-6 overflow-y-auto space-y-4 text-sm">
                     <div class="bg-neutral-800 p-4 rounded-2xl max-w-xl text-slate-200">
                         Selam! Ask me to solve any past paper question or explain complex physics, math, or chemistry formulas.
@@ -278,7 +267,7 @@
         <!-- APP TAB 5: LEADERBOARD -->
         <div id="content-leaderboard" class="app-content hidden space-y-6">
             <h2 class="text-2xl font-bold text-white">National Student Leaderboard</h2>
-            <div class="bg-neutral-900 border border-white/10 rounded-3xl overflow-hidden">
+            <div class="bg-neutral-900/90 border border-white/10 rounded-3xl overflow-hidden backdrop-blur-md">
                 <table class="w-full text-left text-sm">
                     <thead class="bg-neutral-950 border-b border-white/10 text-xs text-slate-400 uppercase">
                         <tr><th class="p-4 pl-6">Rank</th><th class="p-4">Name</th><th class="p-4">School</th><th class="p-4 pr-6 text-right">XP</th></tr>
@@ -292,8 +281,71 @@
     <!-- Toast Notification -->
     <div id="toast-container" class="fixed bottom-6 right-6 z-50 pointer-events-none flex flex-col space-y-2"></div>
 
-    <!-- Script Logic -->
+    <!-- Cosmic Background Canvas & Application Script -->
     <script>
+        // --- Animated Moving Stars & Cosmic Nebula Script ---
+        const canvas = document.getElementById('cosmic-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width, height;
+        let stars = [];
+        const numStars = 120;
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        for (let i = 0; i < numStars; i++) {
+            stars.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                radius: Math.random() * 1.5 + 0.5,
+                alpha: Math.random() * 0.7 + 0.3,
+                speed: Math.random() * 0.2 + 0.05,
+                twinkleSpeed: Math.random() * 0.02 + 0.005
+            });
+        }
+
+        function animateCosmicBackground() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Draw subtle glowing nebula gradients
+            let gradient1 = ctx.createRadialGradient(width * 0.2, height * 0.3, 50, width * 0.2, height * 0.3, width * 0.5);
+            gradient1.addColorStop(0, 'rgba(139, 92, 246, 0.08)');
+            gradient1.addColorStop(1, 'transparent');
+            ctx.fillStyle = gradient1;
+            ctx.fillRect(0, 0, width, height);
+
+            let gradient2 = ctx.createRadialGradient(width * 0.8, height * 0.7, 50, width * 0.8, height * 0.7, width * 0.6);
+            gradient2.addColorStop(0, 'rgba(167, 139, 250, 0.06)');
+            gradient2.addColorStop(1, 'transparent');
+            ctx.fillStyle = gradient2;
+            ctx.fillRect(0, 0, width, height);
+
+            // Draw and move stars
+            stars.forEach(star => {
+                star.y -= star.speed;
+                if (star.y < 0) star.y = height;
+
+                star.alpha += Math.sin(Date.now() * star.twinkleSpeed) * 0.01;
+                star.alpha = Math.max(0.2, Math.min(1, star.alpha));
+
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+                ctx.fill();
+            });
+
+            requestAnimationFrame(animateCosmicBackground);
+        }
+
+        animateCosmicBackground();
+
+        // --- Toast Notifications ---
         function showToast(msg) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -336,7 +388,7 @@
             grid.innerHTML = '';
             vaultRepos.forEach(r => {
                 const card = document.createElement('div');
-                card.className = "bg-neutral-900 border border-white/10 p-6 rounded-3xl space-y-4";
+                card.className = "bg-neutral-900/80 border border-white/10 p-6 rounded-3xl space-y-4 backdrop-blur-md";
                 card.innerHTML = `
                     <div class="w-10 h-10 rounded-xl bg-purple-600/20 text-purple-400 flex items-center justify-center text-lg"><i class="fa-solid ${r.icon}"></i></div>
                     <div><h3 class="font-bold text-white text-lg">${r.subject}</h3><p class="text-xs text-slate-400 mt-1">${r.stream} • ${r.qCount} Questions • ${r.size}</p></div>
