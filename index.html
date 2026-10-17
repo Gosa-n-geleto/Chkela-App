@@ -32,7 +32,7 @@
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             overflow-x: hidden;
         }
-        /* Fixed full-screen animated background canvas */
+        /* Fluid Canvas Background */
         #cosmic-canvas {
             position: fixed;
             top: 0;
@@ -42,7 +42,7 @@
             pointer-events: none;
             z-index: -1;
         }
-        /* Infinite smooth scrolling marquee */
+        /* Infinite Scrolling Schools Marquee */
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -50,7 +50,7 @@
         .animate-marquee {
             display: flex;
             width: max-content;
-            animation: marquee 20s linear infinite;
+            animation: marquee 30s linear infinite;
         }
         .animate-marquee:hover {
             animation-play-state: paused;
@@ -59,7 +59,7 @@
 </head>
 <body class="relative min-h-screen selection:bg-purple-500 selection:text-white">
 
-    <!-- Animated Fluid Cosmic Canvas Background -->
+    <!-- Active Continuous Cosmic Wave Canvas -->
     <canvas id="cosmic-canvas"></canvas>
 
     <!-- Navigation Header -->
@@ -68,15 +68,16 @@
             <span class="text-2xl font-black tracking-tight text-white">Chkela<span class="text-purple-400">.</span></span>
         </div>
 
-        <nav class="hidden md:flex items-center space-x-8 bg-black/50 border border-white/10 px-6 py-2 rounded-full backdrop-blur-md">
+        <nav class="hidden md:flex items-center space-x-6 bg-black/40 border border-white/10 px-6 py-2 rounded-full backdrop-blur-md">
             <button onclick="switchSection('landing')" class="text-sm font-medium text-white hover:text-purple-400 transition">Home</button>
-            <button onclick="switchSection('app')" class="text-sm font-medium text-purple-400 hover:text-white transition flex items-center gap-1.5"><i class="fa-solid fa-bolt text-xs"></i> Launch App Portal</button>
             <a href="#features" class="text-sm font-medium text-slate-400 hover:text-purple-400 transition">Features</a>
+            <a href="#about" class="text-sm font-medium text-slate-400 hover:text-purple-400 transition">About</a>
+            <button onclick="switchSection('app')" class="text-sm font-medium text-purple-400 hover:text-white transition flex items-center gap-1"><i class="fa-solid fa-bolt text-xs"></i> App Portal</button>
         </nav>
 
         <div>
-            <button onclick="switchSection('app')" class="bg-purple-600 hover:bg-purple-500 text-white text-sm font-semibold px-6 py-2.5 rounded-full shadow-lg shadow-purple-600/30 transition">
-                Open App
+            <button onclick="switchSection('app')" class="bg-white text-black hover:bg-slate-200 text-sm font-semibold px-6 py-2.5 rounded-full shadow-lg transition">
+                Log in
             </button>
         </div>
     </header>
@@ -123,6 +124,7 @@
                         <i class="fa-solid fa-arrow-right text-xs"></i>
                     </button>
                 </div>
+                <p class="text-xs text-slate-500">Free on App Store & Google Play</p>
             </div>
 
             <!-- Phone Mockup Preview -->
@@ -164,55 +166,81 @@
             </div>
         </section>
 
-        <!-- MOVING SCHOOLS MARQUEE -->
+        <!-- OUR STUDENTS COME FROM THESE SCHOOLS (MOVING MARQUEE) -->
         <section class="py-10 border-y border-white/5 bg-neutral-950/60 backdrop-blur-md overflow-hidden relative">
             <div class="max-w-7xl mx-auto px-6 mb-4 text-center">
-                <p class="text-xs uppercase tracking-widest text-slate-500 font-semibold">Our students come from these top schools in Ethiopia</p>
+                <p class="text-xs uppercase tracking-widest text-slate-500 font-semibold">OUR STUDENTS COME FROM THESE SCHOOLS</p>
             </div>
             <div class="overflow-hidden relative w-full flex">
                 <div class="animate-marquee flex space-x-6">
-                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xs">NZ</span><div><p class="text-xs font-bold text-white">Nazareth School</p></div></div>
-                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-xs">SJ</span><div><p class="text-xs font-bold text-white">St. Joseph School</p></div></div>
-                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-xs">LGM</span><div><p class="text-xs font-bold text-white">Lycée Guébré-Mariam</p></div></div>
-                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-amber-600/20 text-amber-500 flex items-center justify-center font-bold text-xs">BA</span><div><p class="text-xs font-bold text-white">Bingham Academy</p></div></div>
-                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs">AD</span><div><p class="text-xs font-bold text-white">Andinet Intl School</p></div></div>
-                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-xs">EP</span><div><p class="text-xs font-bold text-white">Ethio Parents' School</p></div></div>
-                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-xs">SOT</span><div><p class="text-xs font-bold text-white">School of Tomorrow</p></div></div>
-                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-teal-500/20 text-teal-400 flex items-center justify-center font-bold text-xs">IB</span><div><p class="text-xs font-bold text-white">International Community School</p></div></div>
-                    <!-- Duplicate for infinite loop -->
-                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xs">NZ</span><div><p class="text-xs font-bold text-white">Nazareth School</p></div></div>
-                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-xs">SJ</span><div><p class="text-xs font-bold text-white">St. Joseph School</p></div></div>
-                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-xs">LGM</span><div><p class="text-xs font-bold text-white">Lycée Guébré-Mariam</p></div></div>
-                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-amber-600/20 text-amber-500 flex items-center justify-center font-bold text-xs">BA</span><div><p class="text-xs font-bold text-white">Bingham Academy</p></div></div>
-                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs">AD</span><div><p class="text-xs font-bold text-white">Andinet Intl School</p></div></div>
-                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-xs">EP</span><div><p class="text-xs font-bold text-white">Ethio Parents' School</p></div></div>
-                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-xs">SOT</span><div><p class="text-xs font-bold text-white">School of Tomorrow</p></div></div>
-                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-teal-500/20 text-teal-400 flex items-center justify-center font-bold text-xs">IB</span><div><p class="text-xs font-bold text-white">International Community School</p></div></div>
+                    <!-- School Group 1 -->
+                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xs">NZ</span><div><p class="text-xs font-bold text-white">Nazareth</p><p class="text-[10px] text-slate-400">Nazareth School</p></div></div>
+                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-xs">SJ</span><div><p class="text-xs font-bold text-white">St. Joseph</p><p class="text-[10px] text-slate-400">St. Joseph School</p></div></div>
+                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-xs">LGM</span><div><p class="text-xs font-bold text-white">LGM</p><p class="text-[10px] text-slate-400">Lycée Guébré-Mariam</p></div></div>
+                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-amber-600/20 text-amber-500 flex items-center justify-center font-bold text-xs">BA</span><div><p class="text-xs font-bold text-white">Bingham</p><p class="text-[10px] text-slate-400">Bingham Academy</p></div></div>
+                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs">AD</span><div><p class="text-xs font-bold text-white">Andinet</p><p class="text-[10px] text-slate-400">Andinet International School</p></div></div>
+                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-xs">EP</span><div><p class="text-xs font-bold text-white">Ethio Parents</p><p class="text-[10px] text-slate-400">Ethio Parents' School</p></div></div>
+                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-xs">SOT</span><div><p class="text-xs font-bold text-white">SOT</p><p class="text-[10px] text-slate-400">School of Tomorrow</p></div></div>
+                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-teal-500/20 text-teal-400 flex items-center justify-center font-bold text-xs">ICS</span><div><p class="text-xs font-bold text-white">ICS Addis</p><p class="text-[10px] text-slate-400">International Community School</p></div></div>
+                    
+                    <!-- School Group 2 (Duplicate for seamless loop) -->
+                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xs">NZ</span><div><p class="text-xs font-bold text-white">Nazareth</p><p class="text-[10px] text-slate-400">Nazareth School</p></div></div>
+                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-xs">SJ</span><div><p class="text-xs font-bold text-white">St. Joseph</p><p class="text-[10px] text-slate-400">St. Joseph School</p></div></div>
+                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-xs">LGM</span><div><p class="text-xs font-bold text-white">LGM</p><p class="text-[10px] text-slate-400">Lycée Guébré-Mariam</p></div></div>
+                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-amber-600/20 text-amber-500 flex items-center justify-center font-bold text-xs">BA</span><div><p class="text-xs font-bold text-white">Bingham</p><p class="text-[10px] text-slate-400">Bingham Academy</p></div></div>
+                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs">AD</span><div><p class="text-xs font-bold text-white">Andinet</p><p class="text-[10px] text-slate-400">Andinet International School</p></div></div>
+                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-xs">EP</span><div><p class="text-xs font-bold text-white">Ethio Parents</p><p class="text-[10px] text-slate-400">Ethio Parents' School</p></div></div>
+                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-xs">SOT</span><div><p class="text-xs font-bold text-white">SOT</p><p class="text-[10px] text-slate-400">School of Tomorrow</p></div></div>
+                    <div class="bg-neutral-900/90 border border-white/10 px-5 py-3 rounded-2xl flex items-center space-x-3 shrink-0"><span class="w-8 h-8 rounded-lg bg-teal-500/20 text-teal-400 flex items-center justify-center font-bold text-xs">ICS</span><div><p class="text-xs font-bold text-white">ICS Addis</p><p class="text-[10px] text-slate-400">International Community School</p></div></div>
                 </div>
             </div>
         </section>
 
-        <!-- FEATURES SECTION -->
+        <!-- LESS WASTED TIME SECTION -->
         <section id="features" class="max-w-7xl mx-auto px-6 py-12 space-y-16">
             <div class="max-w-2xl">
-                <p class="text-xs font-bold text-purple-400 uppercase tracking-widest">The Smarter Way</p>
+                <p class="text-xs font-bold text-purple-400 uppercase tracking-widest">THE SMARTER WAY</p>
                 <h2 class="text-4xl sm:text-6xl font-extrabold text-white mt-2 tracking-tight">Less wasted time. More marks.</h2>
                 <p class="text-slate-400 text-base mt-4">Every tool in Chkela is built around one idea: put your energy where it counts for exam day.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-neutral-900/60 border border-white/10 p-8 rounded-3xl space-y-3 backdrop-blur-md"><span class="text-xs font-mono text-purple-400 font-bold">01</span><h3 class="text-xl font-bold text-white">Practice what the exam actually asks</h3><p class="text-slate-400 text-sm">Drill real NEAEA and Grade 12 past papers.</p></div>
-                <div class="bg-neutral-900/60 border border-white/10 p-8 rounded-3xl space-y-3 backdrop-blur-md"><span class="text-xs font-mono text-purple-400 font-bold">02</span><h3 class="text-xl font-bold text-white">Fix weak spots, skip the rest</h3><p class="text-slate-400 text-sm">Target topics costing you marks.</p></div>
-                <div class="bg-neutral-900/90 border border-purple-500/30 p-8 rounded-3xl space-y-3 shadow-xl backdrop-blur-md"><span class="text-xs font-mono text-purple-400 font-bold">03</span><h3 class="text-xl font-bold text-white">Short drills that compound</h3><p class="text-slate-400 text-sm">Daily quizzes keep knowledge sharp.</p></div>
-                <div class="bg-neutral-900/60 border border-white/10 p-8 rounded-3xl space-y-3 backdrop-blur-md"><span class="text-xs font-mono text-purple-400 font-bold">04</span><h3 class="text-xl font-bold text-white">Get unstuck in seconds</h3><p class="text-slate-400 text-sm">Ask the in-app AI tutor anytime.</p></div>
+                <div class="bg-neutral-900/60 border border-white/10 p-8 rounded-3xl space-y-3 backdrop-blur-md"><span class="text-xs font-mono text-purple-400 font-bold">01</span><h3 class="text-xl font-bold text-white">Practice what the exam actually asks</h3><p class="text-slate-400 text-sm">Drill real NEAEA and Grade 12 past papers — so your time goes into the question styles that show up on exam day.</p></div>
+                <div class="bg-neutral-900/60 border border-white/10 p-8 rounded-3xl space-y-3 backdrop-blur-md"><span class="text-xs font-mono text-purple-400 font-bold">02</span><h3 class="text-xl font-bold text-white">Fix weak spots, skip the rest</h3><p class="text-slate-400 text-sm">See which topics are costing you marks. Double down there instead of re-reading chapters you've already got.</p></div>
+                <div class="bg-neutral-900/90 border border-purple-500/30 p-8 rounded-3xl space-y-3 shadow-xl backdrop-blur-md"><span class="text-xs font-mono text-purple-400 font-bold">03</span><h3 class="text-xl font-bold text-white">Short drills that compound</h3><p class="text-slate-400 text-sm">Daily quizzes keep what you learned from slipping away — so progress sticks without marathon cram sessions.</p></div>
+                <div class="bg-neutral-900/60 border border-white/10 p-8 rounded-3xl space-y-3 backdrop-blur-md"><span class="text-xs font-mono text-purple-400 font-bold">04</span><h3 class="text-xl font-bold text-white">Get unstuck in seconds</h3><p class="text-slate-400 text-sm">When a concept won't click, ask the in-app tutor and move on. No more losing an evening to one confusing paragraph.</p></div>
             </div>
         </section>
 
-        <!-- STATS 90% BANNER -->
+        <!-- 90% STATS BANNER -->
         <section class="max-w-7xl mx-auto px-6 py-12">
             <div class="bg-gradient-to-r from-neutral-900 via-purple-950/40 to-neutral-900 border border-white/10 rounded-3xl p-10 sm:p-16 text-center space-y-6 backdrop-blur-md shadow-2xl">
                 <h2 class="text-7xl sm:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-white to-purple-600 tracking-tighter">90%</h2>
                 <h3 class="text-2xl sm:text-4xl font-bold text-white">of Chkela students passed matric last year.</h3>
                 <p class="text-slate-400 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">Not because they studied longer — because they studied the right things, with feedback that made every session count.</p>
+            </div>
+        </section>
+
+        <!-- WORK SMART. PASS STRONG. CTA -->
+        <section class="max-w-7xl mx-auto px-6 py-16 text-center space-y-8">
+            <div class="max-w-2xl mx-auto space-y-4">
+                <h2 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight">Work smart. Pass strong.</h2>
+                <p class="text-slate-400 text-base">Download Chkela and turn your next study block into progress you can measure — not hours you can't get back.</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-4 pt-4">
+                <button onclick="switchSection('app')" class="bg-white/10 hover:bg-white/20 border border-white/15 text-white px-8 py-3.5 rounded-2xl flex items-center space-x-3 transition backdrop-blur-md">
+                    <i class="fa-brands fa-apple text-2xl"></i>
+                    <div class="text-left">
+                        <p class="text-[10px] text-slate-400 uppercase tracking-wider">Download on the</p>
+                        <p class="text-base font-bold">App Store</p>
+                    </div>
+                </button>
+                <button onclick="switchSection('app')" class="bg-white/10 hover:bg-white/20 border border-white/15 text-white px-8 py-3.5 rounded-2xl flex items-center space-x-3 transition backdrop-blur-md">
+                    <i class="fa-brands fa-google-play text-2xl"></i>
+                    <div class="text-left">
+                        <p class="text-[10px] text-slate-400 uppercase tracking-wider">Get it on</p>
+                        <p class="text-base font-bold">Google Play</p>
+                    </div>
+                </button>
             </div>
         </section>
     </div>
@@ -227,7 +255,7 @@
                 <button onclick="switchAppTab('ai')" id="app-tab-ai" class="app-nav px-4 py-2 rounded-xl text-xs font-bold transition text-slate-400 hover:text-white">AI Study Assistant</button>
                 <button onclick="switchAppTab('leaderboard')" id="app-tab-leaderboard" class="app-nav px-4 py-2 rounded-xl text-xs font-bold transition text-slate-400 hover:text-white">Leaderboard</button>
             </div>
-            <button onclick="switchSection('landing')" class="text-xs text-slate-400 hover:text-white px-3 py-1.5 rounded-lg border border-white/10">Exit to Landing</button>
+            <button onclick="switchSection('landing')" class="text-xs text-slate-400 hover:text-white px-3 py-1.5 rounded-lg border border-white/10">Back to Landing</button>
         </div>
 
         <div id="content-dashboard" class="app-content space-y-6">
@@ -307,10 +335,26 @@
         </div>
     </div>
 
+    <!-- FOOTER -->
+    <footer id="about" class="border-t border-white/10 bg-neutral-950 py-12 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="space-y-1 text-center sm:text-left">
+                <span class="text-xl font-black text-white">Chkela<span class="text-purple-400">.</span></span>
+                <p class="text-xs text-slate-500">Smarter matric prep for Ethiopian students.</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-6 text-xs text-slate-400">
+                <a href="#" class="hover:text-white transition">Terms and Conditions</a>
+                <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                <a href="tel:+251947819388" class="hover:text-white transition">+251947819388</a>
+                <a href="mailto:contact@chkela.com" class="hover:text-white transition">contact@chkela.com</a>
+            </div>
+        </div>
+    </footer>
+
     <!-- Toast Notification -->
     <div id="toast-container" class="fixed bottom-6 right-6 z-50 pointer-events-none flex flex-col space-y-2"></div>
 
-    <!-- Active Continuous Cosmic Wave Animation Script -->
+    <!-- Continuous Fluid Animated Cosmic Wave Script -->
     <script>
         const canvas = document.getElementById('cosmic-canvas');
         const ctx = canvas.getContext('2d');
@@ -330,44 +374,44 @@
         for (let i = 0; i < 6; i++) {
             waves.push({
                 yOffset: Math.random() * height,
-                length: Math.random() * 0.003 + 0.001,
-                amplitude: Math.random() * 120 + 60,
-                speed: Math.random() * 0.015 + 0.005,
+                length: Math.random() * 0.002 + 0.0008,
+                amplitude: Math.random() * 150 + 80,
+                speed: Math.random() * 0.01 + 0.003,
                 angle: Math.random() * Math.PI * 2,
-                color: i % 2 === 0 ? 'rgba(139, 92, 246, 0.16)' : 'rgba(167, 139, 250, 0.1)'
+                color: i % 2 === 0 ? 'rgba(139, 92, 246, 0.18)' : 'rgba(167, 139, 250, 0.12)'
             });
         }
 
         function renderCosmicFlow() {
             ctx.clearRect(0, 0, width, height);
 
-            // Deep background gradient hubs
-            let bgGlow1 = ctx.createRadialGradient(width * 0.25, height * 0.3, 100, width * 0.25, height * 0.3, width * 0.7);
-            bgGlow1.addColorStop(0, 'rgba(139, 92, 246, 0.18)');
+            // Deep background glow hubs
+            let bgGlow1 = ctx.createRadialGradient(width * 0.3, height * 0.3, 100, width * 0.3, height * 0.3, width * 0.7);
+            bgGlow1.addColorStop(0, 'rgba(139, 92, 246, 0.2)');
             bgGlow1.addColorStop(1, 'transparent');
             ctx.fillStyle = bgGlow1;
             ctx.fillRect(0, 0, width, height);
 
             let bgGlow2 = ctx.createRadialGradient(width * 0.75, height * 0.7, 100, width * 0.75, height * 0.7, width * 0.8);
-            bgGlow2.addColorStop(0, 'rgba(167, 139, 250, 0.12)');
+            bgGlow2.addColorStop(0, 'rgba(167, 139, 250, 0.14)');
             bgGlow2.addColorStop(1, 'transparent');
             ctx.fillStyle = bgGlow2;
             ctx.fillRect(0, 0, width, height);
 
-            // Continuously animate glowing curved waves
+            // Animate continuous curved waves
             waves.forEach(wave => {
                 wave.angle += wave.speed;
                 ctx.beginPath();
                 ctx.moveTo(0, wave.yOffset);
 
-                for (let x = 0; x < width; x += 20) {
-                    let y = wave.yOffset + Math.sin(x * wave.length + wave.angle) * wave.amplitude + Math.cos(wave.angle * 0.5) * 40;
+                for (let x = 0; x < width; x += 25) {
+                    let y = wave.yOffset + Math.sin(x * wave.length + wave.angle) * wave.amplitude + Math.cos(wave.angle * 0.5) * 50;
                     ctx.lineTo(x, y);
                 }
 
                 ctx.strokeStyle = wave.color;
-                ctx.lineWidth = 140;
-                ctx.filter = 'blur(60px)';
+                ctx.lineWidth = 160;
+                ctx.filter = 'blur(70px)';
                 ctx.stroke();
                 ctx.filter = 'none';
             });
