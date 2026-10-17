@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chkela Exam Vault - Ultimate Ethiopian National Exam & Study Platform</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome for comprehensive iconography -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.82);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(156, 163, 175, 0.5); border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(107, 114, 128, 0.8); }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        .animate-glow { animation: pulseGlow 6s infinite ease-in-out; }
+    </style>
+</head>
+<body class="h-full bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-300 flex flex-col overflow-hidden">
+
+    <!-- Ambient Background Glow Effects -->
+    <div class="fixed top-0 left-1/4 w-96 h-96 bg-indigo-500/10 dark:bg-indigo-500/5 rounded-full blur-3xl pointer-events-none animate-glow"></div>
+    <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-violet-500/10 dark:bg-violet-500/5 rounded-full blur-3xl pointer-events-none animate-glow" style="animation-delay: 3s;"></div>
+
+    <!-- Header Navigation Bar -->
+    <header class="flex-none z-30 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-4 lg:px-8 py-3 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/30">
+                <i class="fa-solid fa-graduation-cap text-lg"></i>
+            </div>
+            <div>
+                <h1 class="font-bold text-lg tracking-tight bg-gradient-to-r from-indigo-600 to-violet-500 bg-clip-text text-transparent">Chkela <span class="text-xs uppercase px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 font-semibold tracking-wider ml-1">Vault v3.5</span></h1>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Ethiopian National Exam Repository & AI Study Hub</p>
+            </div>
+        </div>
+
+        <!-- Global Actions & Profile -->
+        <div class="flex items-center space-x-3">
+            <!-- Offline Vault Status Badge -->
+            <div id="global-sync-badge" class="hidden sm:flex items-center space-x-2 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800/50 text-emerald-700 dark:text-emerald-300 text-xs font-medium shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>IndexedDB Storage Active (100% Offline)</span>
+            </div>
+
+            <!-- Dark Mode Toggle -->
+            <button onclick="toggleDarkMode()" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 transition-colors" title="Toggle Theme">
+                <i id="theme-icon" class="fa-solid fa-moon"></i>
+            </button>
+
+            <!-- Streak & User Profile -->
+            <div class="flex items-center space-x-2 pl-2 border-l border-slate-200 dark:border-slate-800">
+                <div class="flex items-center space-x-1.5 bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 px-3 py-1.5 rounded-xl text-xs font-bold border border-amber-200 dark:border-amber-900/50">
+                    <i class="fa-solid fa-fire text-amber-500"></i>
+                    <span id="streak-badge-text">21 Days</span>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-600 font-bold text-white flex items-center justify-center shadow-md text-sm">
+                    <span>GE</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- App Container -->
+    <div class="flex-1 flex overflow-hidden">
+        <!-- Sidebar Navigation -->
+        <aside class="w-20 lg:w-64 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between transition-all duration-300 z-20">
+            <nav class="p-3 space-y-1.5">
+                <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-3 rounded-xl font-medium text-sm transition-all bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400">
+                    <i class="fa-solid fa-chart-pie text-lg w-6 text-center"></i>
+                    <span class="hidden lg:inline">Dashboard</span>
+                </button>
+                <button onclick="switchTab('vault')" id="nav-vault" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-3 rounded-xl font-medium text-sm transition-all text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60">
+                    <i class="fa-solid fa-vault text-lg w-6 text-center"></i>
+                    <span class="hidden lg:inline">Offline Vault</span>
+                </button>
+                <button onclick="switchTab('practice')" id="nav-practice" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-3 rounded-xl font-medium text-sm transition-all text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60">
+                    <i class="fa-solid fa-laptop-code text-lg w-6 text-center"></i>
+                    <span class="hidden lg:inline">Exam Quiz Simulator</span>
+                </button>
+                <button onclick="switchTab('ai-tutor')" id="nav-ai-tutor" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-3 rounded-xl font-medium text-sm transition-all text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60">
+                    <i class="fa-solid fa-robot text-lg w-6 text-center"></i>
+                    <span class="hidden lg:inline">AI Study Assistant</span>
+                </button>
+                <button onclick="switchTab('reader')" id="nav-reader" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-3 rounded-xl font-medium text-sm transition-all text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60">
+                    <i class="fa-solid fa-book-open text-lg w-6 text-center"></i>
+                    <span class="hidden lg:inline">Formula & Notes</span>
+                </button>
+                <button onclick="switchTab('leaderboard')" id="nav-leaderboard" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-3 rounded-xl font-medium text-sm transition-all text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60">
+                    <i class="fa-solid fa-trophy text-lg w-6 text-center"></i>
+                    <span class="hidden lg:inline">Leaderboard</span>
+                </button>
+            </nav>
+
+            <!-- Storage Meter Footer -->
+            <div class="p-4 m-3 rounded-2xl bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 hidden lg:block">
+                <div class="flex items-center justify-between text-xs mb-1.5 font-semibold text-slate-600 dark:text-slate-300">
+                    <span>IndexedDB Cache</span>
+                    <span id="storage-percentage">88%</span>
+                </div>
+                <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                    <div id="storage-bar" class="bg-indigo-600 h-full rounded-full transition-all duration-500" style="width: 88%;"></div>
+                </div>
+                <p class="text-[10px] text-slate-400 mt-2">2,450 Exam Questions Cached Locally</p>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 bg-slate-50 dark:bg-slate-950 overflow-y-auto relative p-4 lg:p-8">
+
+            <!-- TAB 1: DASHBOARD -->
+            <section id="tab-dashboard" class="space-y-6 max-w-7xl mx-auto">
+                <!-- Welcome Banner -->
+                <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-600 via-indigo-700 to-violet-800 p-6 lg:p-8 text-white shadow-xl shadow-indigo-500/10">
+                    <div class="absolute right-0 bottom-0 translate-x-8 translate-y-8 w-64 h-64 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+                    <div class="relative z-10 max-w-2xl">
+                        <span class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-semibold mb-4">
+                            <i class="fa-solid fa-bolt text-amber-300"></i>
+                            <span>Ethiopian Grade 12 University Entrance 2016 E.C. Vault</span>
+                        </span>
+                        <h2 class="text-2xl lg:text-4xl font-extrabold tracking-tight mb-2">Welcome Back, Scholar!</h2>
+                        <p class="text-indigo-100 text-sm lg:text-base mb-6">Your local offline database is fully synchronized. Ready to conquer your university entrance exam preparation?</p>
+                        <div class="flex flex-wrap gap-3">
+                            <button onclick="switchTab('practice')" class="px-5 py-2.5 rounded-xl bg-white text-indigo-700 hover:bg-indigo-50 font-bold text-sm shadow-lg transition-all flex items-center space-x-2">
+                                <span class="text-indigo-700">Launch Quiz Simulator</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                            <button onclick="switchTab('vault')" class="px-5 py-2.5 rounded-xl bg-indigo-800/60 hover:bg-indigo-800 text-white font-semibold text-sm border border-white/20 transition-all flex items-center space-x-2">
+                                <i class="fa-solid fa-database"></i>
+                                <span>Browse Vault Repository</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="glass-card p-5 rounded-2xl shadow-sm">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Questions Answered</span>
+                            <div class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-check-double"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white" id="stat-total-solved">1,840</h3>
+                        <p class="text-xs text-emerald-600 dark:text-emerald-400 font-medium mt-1"><i class="fa-solid fa-arrow-trend-up"></i> +312 this week</p>
+                    </div>
+                    <div class="glass-card p-5 rounded-2xl shadow-sm">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Average Accuracy</span>
+                            <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white" id="stat-accuracy">87.5%</h3>
+                        <p class="text-xs text-emerald-600 dark:text-emerald-400 font-medium mt-1"><i class="fa-solid fa-shield-halved"></i> Grade A Distinction Ready</p>
+                    </div>
+                    <div class="glass-card p-5 rounded-2xl shadow-sm">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Cached Subject Packs</span>
+                            <div class="w-10 h-10 rounded-xl bg-violet-50 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-vault"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white">8 / 8</h3>
+                        <p class="text-xs text-violet-600 dark:text-violet-400 font-medium mt-1"><i class="fa-solid fa-circle-check"></i> 100% Offline Ready</p>
+                    </div>
+                    <div class="glass-card p-5 rounded-2xl shadow-sm">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">National Standing</span>
+                            <div class="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-medal"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white">#18</h3>
+                        <p class="text-xs text-amber-600 dark:text-amber-400 font-medium mt-1"><i class="fa-solid fa-fire"></i> Top 0.5% Nationwide</p>
+                    </div>
+                </div>
+
+                <!-- Subject Quick Navigation -->
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-bold text-lg text-slate-900 dark:text-white">Subject Repositories</h3>
+                        <span class="text-xs text-indigo-600 dark:text-indigo-400 font-semibold cursor-pointer hover:underline" onclick="switchTab('vault')">Manage All in Vault</span>
+                    </div>
+                    <div id="dashboard-subjects-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <!-- Injected dynamically via JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: OFFLINE VAULT -->
+            <section id="tab-vault" class="space-y-6 max-w-7xl mx-auto hidden">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">Offline Vault & Question Banks</h2>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm">Download entire subject repositories for zero-data offline studying anywhere in Ethiopia.</p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="downloadAllPacks()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-semibold text-xs shadow-md hover:bg-indigo-700 transition-all flex items-center space-x-2">
+                            <i class="fa-solid fa-cloud-arrow-down"></i>
+                            <span>Sync All Available Packs</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filter toolbar -->
+                <div class="flex flex-wrap items-center justify-between gap-3 bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
+                    <div class="flex items-center space-x-2 w-full sm:w-auto">
+                        <div class="relative flex-1 sm:w-80">
+                            <i class="fa-solid fa-search absolute left-3.5 top-3 text-slate-400"></i>
+                            <input type="text" id="vault-search" oninput="filterVault()" placeholder="Search subjects or years..." class="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border-none text-sm focus:ring-2 focus:ring-indigo-500 text-slate-800 dark:text-slate-100">
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 text-xs font-medium">
+                        <button onclick="filterVaultCategory('all')" class="vault-cat-btn px-3.5 py-2 rounded-xl bg-indigo-600 text-white transition-all">All Subjects</button>
+                        <button onclick="filterVaultCategory('Natural Science')" class="vault-cat-btn px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition-all">Natural Science</button>
+                        <button onclick="filterVaultCategory('Social Science')" class="vault-cat-btn px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition-all">Social Science</button>
+                    </div>
+                </div>
+
+                <!-- Vault Cards Grid -->
+                <div id="vault-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Injected dynamically via JS -->
+                </div>
+            </section>
+
+            <!-- TAB 3: PRACTICE / EXAM QUIZ SIMULATOR -->
+            <section id="tab-practice" class="space-y-6 max-w-4xl mx-auto hidden">
+                <div id="quiz-setup-view" class="glass-card p-6 lg:p-8 rounded-3xl shadow-lg space-y-6">
+                    <div class="text-center max-w-lg mx-auto space-y-2">
+                        <div class="w-14 h-14 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 mx-auto flex items-center justify-center text-2xl font-bold shadow-inner">
+                            <i class="fa-solid fa-puzzle-piece"></i>
+                        </div>
+                        <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white">Interactive Exam Quiz Simulator</h2>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Test yourself on past Ethiopian University Entrance Examinations with timed sessions, instant grading, and step-by-step explanations.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">Select Subject</label>
+                            <select id="quiz-subject-select" class="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 border-none text-sm font-semibold focus:ring-2 focus:ring-indigo-500 text-slate-800 dark:text-slate-100">
+                                <option value="Mathematics">Mathematics (Natural)</option>
+                                <option value="Physics">Physics</option>
+                                <option value="Chemistry">Chemistry</option>
+                                <option value="Biology">Biology</option>
+                                <option value="English">English</option>
+                                <option value="Civics">Civics & Ethical Education</option>
+                                <option value="Economics">Economics</option>
+                                <option value="History">History</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">Academic Year (E.C.)</label>
+                            <select id="quiz-year-select" class="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 border-none text-sm font-semibold focus:ring-2 focus:ring-indigo-500 text-slate-800 dark:text-slate-100">
+                                <option value="2016">2016 E.C. (Latest Entrance)</option>
+                                <option value="2015">2015 E.C.</option>
+                                <option value="2014">2014 E.C.</option>
+                                <option value="2013">2013 E.C.</option>
+                                <option value="2012">2012 E.C.</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-800">
+                        <div class="text-xs text-slate-500 dark:text-slate-400 flex items-center space-x-1">
+                            <i class="fa-solid fa-bolt text-amber-500"></i>
+                            <span>Instant grading & offline explanations enabled</span>
+                        </div>
+                        <button onclick="startQuizSession()" class="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-lg shadow-indigo-500/25 transition-all flex items-center space-x-2">
+                            <span>Launch Quiz Session</span>
+                            <i class="fa-solid fa-play"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Active Quiz View -->
+                <div id="quiz-active-view" class="hidden space-y-6">
+                    <!-- Quiz Header bar -->
+                    <div class="glass-card p-4 rounded-2xl flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <span id="quiz-badge-subject" class="px-3 py-1 rounded-xl bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 text-xs font-bold">Mathematics</span>
+                            <span id="quiz-progress-text" class="text-xs font-semibold text-slate-500 dark:text-slate-400">Question 1 of 5</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="flex items-center space-x-1.5 text-xs font-mono font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/50 px-3 py-1 rounded-xl">
+                                <i class="fa-regular fa-clock"></i>
+                                <span id="quiz-timer">14:59</span>
+                            </div>
+                            <button onclick="quitQuiz()" class="text-xs text-slate-400 hover:text-rose-500 transition-colors">Quit</button>
+                        </div>
+                    </div>
+
+                    <!-- Question Card -->
+                    <div class="glass-card p-6 lg:p-8 rounded-3xl shadow-xl space-y-6">
+                        <div class="flex items-start justify-between">
+                            <h3 id="quiz-question-title" class="text-lg lg:text-xl font-bold text-slate-900 dark:text-white leading-relaxed">
+                                Loading question...
+                            </h3>
+                            <button onclick="toggleBookmarkCurrent()" id="quiz-bookmark-btn" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-amber-500 flex items-center justify-center transition-colors" title="Bookmark Question">
+                                <i class="fa-regular fa-bookmark text-lg"></i>
+                            </button>
+                        </div>
+
+                        <!-- Options List -->
+                        <div id="quiz-options-list" class="space-y-3">
+                            <!-- Injected options -->
+                        </div>
+
+                        <!-- Explanation Box (Hidden initially) -->
+                        <div id="quiz-explanation-box" class="hidden p-4 rounded-2xl bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-200 dark:border-indigo-900/50 text-indigo-900 dark:text-indigo-200 text-sm space-y-2">
+                            <div class="flex items-center space-x-2 font-bold text-indigo-700 dark:text-indigo-300">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <span>Step-by-Step Solution Breakdown</span>
+                            </div>
+                            <p id="quiz-explanation-text">Explanation goes here...</p>
+                        </div>
+                    </div>
+
+                    <!-- Quiz Navigation Footer -->
+                    <div class="flex items-center justify-between">
+                        <button onclick="prevQuestion()" id="quiz-prev-btn" class="px-5 py-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold text-sm disabled:opacity-40" disabled>
+                            <i class="fa-solid fa-arrow-left mr-2"></i> Previous
+                        </button>
+                        <button onclick="nextQuestion()" id="quiz-next-btn" class="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-md transition-all">
+                            Next Question <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quiz Results Summary View -->
+                <div id="quiz-results-view" class="hidden glass-card p-8 rounded-3xl shadow-xl text-center space-y-6 max-w-xl mx-auto">
+                    <div class="w-20 h-20 rounded-3xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 mx-auto flex items-center justify-center text-4xl shadow-inner">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white">Quiz Session Complete!</h2>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Here is how you performed on this Ethiopian Entrance examination set.</p>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/60">
+                        <div>
+                            <span class="text-xs text-slate-400 font-medium">Final Score</span>
+                            <h3 id="result-score-percent" class="text-2xl font-extrabold text-indigo-600 dark:text-indigo-400">92%</h3>
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-400 font-medium">Correct</span>
+                            <h3 id="result-correct-count" class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">4 / 5</h3>
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-400 font-medium">Time Taken</span>
+                            <h3 id="result-time-taken" class="text-2xl font-extrabold text-slate-800 dark:text-slate-200">3m 42s</h3>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center space-x-3 pt-2">
+                        <button onclick="resetQuizSetup()" class="px-6 py-3 rounded-xl bg-indigo-600 text-white font-bold text-sm shadow-md hover:bg-indigo-700 transition-all">
+                            Practice Another Subject
+                        </button>
+                        <button onclick="switchTab('dashboard')" class="px-6 py-3 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold text-sm">
+                            Return to Dashboard
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: AI STUDY ASSISTANT -->
+            <section id="tab-ai-tutor" class="space-y-6 max-w-4xl mx-auto h-[calc(100vh-8rem)] flex flex-col hidden">
+                <div class="flex-none">
+                    <h2 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">Chkela AI Study Assistant</h2>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm">Ask any question regarding Ethiopian university entrance exams, complex physics formulas, or chemistry equations.</p>
+                </div>
+
+                <!-- Chat Box Container -->
+                <div class="flex-1 glass-card rounded-3xl flex flex-col overflow-hidden shadow-xl border border-slate-200 dark:border-slate-800">
+                    <!-- Chat Messages Area -->
+                    <div id="chat-messages" class="flex-1 p-4 lg:p-6 overflow-y-auto space-y-4">
+                        <!-- Initial AI Greeting -->
+                        <div class="flex items-start space-x-3">
+                            <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold flex-shrink-0 shadow-md">
+                                <i class="fa-solid fa-robot"></i>
+                            </div>
+                            <div class="glass-card p-4 rounded-2xl rounded-tl-none max-w-xl text-sm space-y-2">
+                                <p class="font-semibold text-indigo-600 dark:text-indigo-400">Chkela AI Tutor</p>
+                                <p class="text-slate-700 dark:text-slate-200">Selam! I am your AI study companion trained on Ethiopian National Examinations (Grade 12 Entrance). Ask me to solve any past paper question or explain challenging concepts step by step.</p>
+                                <div class="flex flex-wrap gap-2 pt-2">
+                                    <button onclick="sendPresetPrompt('Explain Newton’s Laws with Ethiopian context')" class="px-3 py-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 text-xs font-semibold hover:bg-indigo-100 transition-all">Explain Newton's Laws</button>
+                                    <button onclick="sendPresetPrompt('Solve organic chemistry nomenclature rules')" class="px-3 py-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 text-xs font-semibold hover:bg-indigo-100 transition-all">Organic Chemistry Rules</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Input Bar -->
+                    <div class="flex-none p-4 bg-white/50 dark:bg-slate-900/50 border-t border-slate-200 dark:border-slate-800">
+                        <form onsubmit="handleChatSubmit(event)" class="flex items-center space-x-3">
+                            <input type="text" id="chat-input" placeholder="Ask about math, physics, chemistry past exam questions..." class="flex-1 px-4 py-3 rounded-2xl bg-slate-100 dark:bg-slate-800 border-none text-sm focus:ring-2 focus:ring-indigo-500 text-slate-800 dark:text-slate-100">
+                            <button type="submit" class="w-12 h-12 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center shadow-lg transition-all flex-shrink-0">
+                                <i class="fa-solid fa-paper-plane text-sm"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 5: FORMULA & NOTES READER -->
+            <section id="tab-reader" class="space-y-6 max-w-5xl mx-auto hidden">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">Formula Sheets & Revision Notes</h2>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm">Offline downloadable summary notes for Grade 11 and 12 Natural & Social Sciences.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="glass-card p-6 rounded-3xl shadow-sm space-y-4 flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-2xl bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl font-bold mb-4">
+                                <i class="fa-solid fa-square-root-variable"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-slate-900 dark:text-white">Mathematics Ultimate Formula Compendium</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Calculus derivatives, integral tables, matrices, conic sections, and probability theorems.</p>
+                        </div>
+                        <button onclick="openDocumentReader('Mathematics Compendium', 'Calculus: d/dx[x^n] = nx^(n-1)\\nIntegration: ∫ x^n dx = (x^(n+1))/(n+1) + C\\nTrigonometry: sin(A+B) = sinAcosB + cosAsinB')" class="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs shadow-md transition-all">
+                            Open Notes Viewer
+                        </button>
+                    </div>
+                    <div class="glass-card p-6 rounded-3xl shadow-sm space-y-4 flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xl font-bold mb-4">
+                                <i class="fa-solid fa-atom"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-slate-900 dark:text-white">Physics Master Equations & Constants</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Mechanics, thermodynamics, electromagnetism, optics, and modern physics constant references.</p>
+                        </div>
+                        <button onclick="openDocumentReader('Physics Master Equations', 'Kinematics: v = u + at, s = ut + 1/2 at^2\\nDynamics: F = ma, Momentum p = mv\\nElectromagnetism: F = qvB sinθ, V = IR')" class="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs shadow-md transition-all">
+                            Open Notes Viewer
+                        </button>
+                    </div>
+                    <div class="glass-card p-6 rounded-3xl shadow-sm space-y-4 flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-2xl bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 flex items-center justify-center text-xl font-bold mb-4">
+                                <i class="fa-solid fa-flask"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-slate-900 dark:text-white">Chemistry Periodic Table & Reaction Guide</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Organic nomenclature, thermodynamics laws, electrochemical series, and stoichiometry formulas.</p>
+                        </div>
+                        <button onclick="openDocumentReader('Chemistry Reaction Guide', 'Stoichiometry: n = m / M\\nGas Law: PV = nRT\\nEquilibrium Constant: Kc = ([C]^c[D]^d)/([A]^a[B]^b)')" class="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs shadow-md transition-all">
+                            Open Notes Viewer
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Document Reader Modal Container -->
+                <div id="document-modal" class="hidden glass-card p-6 rounded-3xl shadow-2xl space-y-4 border border-indigo-500/30">
+                    <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+                        <h3 id="modal-doc-title" class="font-bold text-lg text-indigo-600 dark:text-indigo-400">Document Title</h3>
+                        <button onclick="closeDocumentReader()" class="text-xs text-slate-400 hover:text-rose-500 font-bold px-3 py-1 rounded-lg bg-slate-100 dark:bg-slate-800">Close Reader</button>
+                    </div>
+                    <pre id="modal-doc-content" class="bg-slate-100 dark:bg-slate-900 p-4 rounded-2xl text-xs font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap overflow-x-auto"></pre>
+                </div>
+            </section>
+
+            <!-- TAB 6: LEADERBOARD -->
+            <section id="tab-leaderboard" class="space-y-6 max-w-4xl mx-auto hidden">
+                <div>
+                    <h2 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">Study Community Leaderboard</h2>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm">See how you rank among Ethiopian high school students preparing for the 2016 E.C. entrance exams.</p>
+                </div>
+
+                <div class="glass-card rounded-3xl overflow-hidden shadow-xl border border-slate-200 dark:border-slate-800">
+                    <div class="p-6 bg-gradient-to-r from-indigo-600 to-violet-700 text-white flex items-center justify-between">
+                        <div>
+                            <h3 class="font-bold text-lg">National Top Achievers</h3>
+                            <p class="text-indigo-100 text-xs">Updated hourly from offline sync nodes across regions</p>
+                        </div>
+                        <div class="px-4 py-1.5 rounded-xl bg-white/20 backdrop-blur-md text-xs font-semibold">
+                            <span>Your Rank: #18</span>
+                        </div>
+                    </div>
+
+                    <div id="leaderboard-list" class="divide-y divide-slate-200 dark:divide-slate-800">
+                        <!-- Injected via JS -->
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Notification Toast Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 space-y-2 pointer-events-none"></div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // --- Application State & IndexedDB Simulation ---
+        let currentTab = 'dashboard';
+        let isDarkMode = false;
+
+        const subjectsData = [
+            { id: 'math', name: 'Mathematics (Natural)', category: 'Natural Science', icon: 'fa-square-root-variable', count: 520, downloaded: true, progress: 100, color: 'from-blue-600 to-indigo-600' },
+            { id: 'physics', name: 'Physics', category: 'Natural Science', icon: 'fa-atom', count: 480, downloaded: true, progress: 92, color: 'from-indigo-600 to-violet-600' },
+            { id: 'chem', name: 'Chemistry', category: 'Natural Science', icon: 'fa-flask', count: 440, downloaded: true, progress: 88, color: 'from-violet-600 to-purple-600' },
+            { id: 'bio', name: 'Biology', category: 'Natural Science', icon: 'fa-dna', count: 500, downloaded: true, progress: 95, color: 'from-emerald-600 to-teal-600' },
+            { id: 'english', name: 'English Language', category: 'Social Science', icon: 'fa-book-open-reader', count: 560, downloaded: true, progress: 100, color: 'from-amber-600 to-orange-600' },
+            { id: 'civics', name: 'Civics & Ethical Education', category: 'Social Science', icon: 'fa-scale-balanced', count: 350, downloaded: true, progress: 100, color: 'from-rose-600 to-pink-600' },
+            { id: 'econ', name: 'Economics', category: 'Social Science', icon: 'fa-chart-pie', count: 310, downloaded: true, progress: 100, color: 'from-sky-600 to-cyan-600' },
+            { id: 'history', name: 'History', category: 'Social Science', icon: 'fa-landmark', count: 380, downloaded: true, progress: 100, color: 'from-amber-700 to-yellow-600' }
+        ];
+
+        const quizQuestionsBank = {
+            'Mathematics': [
+                {
+                    id: 1,
+                    question: "What is the derivative of f(x) = x³ · ln(x) for x > 0?",
+                    options: ["x²(3 ln(x) + 1)", "3x² ln(x)", "x²(3 ln(x) - 1)", "3x ln(x) + x"],
+                    correct: 0,
+                    explanation: "Using the product rule d/dx [u·v] = u'v + uv' where u = x³ and v = ln(x). u' = 3x², v' = 1/x. Thus: 3x²·ln(x) + x³·(1/x) = 3x²ln(x) + x² = x²(3 ln(x) + 1)."
+                },
+                {
+                    id: 2,
+                    question: "What is the limit of (sin 3x) / x as x approaches 0?",
+                    options: ["1", "3", "0", "Undefined"],
+                    correct: 1,
+                    explanation: "Using standard limit lim_{x->0} (sin kx)/x = k. Here k = 3, so the limit is 3."
+                },
+                {
+                    id: 3,
+                    question: "If the roots of the quadratic equation x² - 5x + 6 = 0 are α and β, what is α² + β²?",
+                    options: ["13", "25", "11", "19"],
+                    correct: 0,
+                    explanation: "Sum of roots α + β = 5, product αβ = 6. Then α² + β² = (α + β)² - 2αβ = 25 - 12 = 13."
+                },
+                {
+                    id: 4,
+                    question: "What is the integral of e^(2x) dx?",
+                    options: ["2e^(2x) + C", "(1/2)e^(2x) + C", "e^(2x) + C", "(1/4)e^(2x) + C"],
+                    correct: 1,
+                    explanation: "Integration of e^(kx) is (1/k)e^(kx) + C. Here k = 2, so the result is (1/2)e^(2x) + C."
+                },
+                {
+                    id: 5,
+                    question: "Find the determinant of matrix A = [[2, 1], [3, 4]]",
+                    options: ["5", "8", "11", "14"],
+                    correct: 0,
+                    explanation: "det(A) = ad - bc = (2)(4) - (1)(3) = 8 - 3 = 5."
+                }
+            ],
+            'Physics': [
+                {
+                    id: 1,
+                    question: "A ball is thrown vertically upward with an initial velocity of 20 m/s. Neglecting air resistance, what is the maximum height reached? (g = 10 m/s²)",
+                    options: ["10 m", "15 m", "20 m", "40 m"],
+                    correct: 2,
+                    explanation: "Using v² = u² - 2gh. At maximum height v = 0. 0 = 20² - 2(10)h => 20h = 400 => h = 20 meters."
+                },
+                {
+                    id: 2,
+                    question: "Which of the following electromagnetic waves has the highest frequency?",
+                    options: ["Infrared", "X-rays", "Microwaves", "Radio waves"],
+                    correct: 1,
+                    explanation: "X-rays possess higher frequency and shorter wavelength than infrared, microwaves, and radio waves."
+                }
+            ]
+        };
+
+        const leaderboardUsers = [
+            { rank: 1, name: "Dawit Melesse", region: "Addis Ababa", score: "99.1%", points: 5210, badge: "Gold Scholar" },
+            { rank: 2, name: "Hanna Tadesse", region: "Bahir Dar", score: "98.4%", points: 4980, badge: "Gold Scholar" },
+            { rank: 3, name: "Samuel Bekele", region: "Hawassa", score: "97.2%", points: 4750, badge: "Silver Scholar" },
+            { rank: 18, name: "Gech (You)", region: "Addis Ababa", score: "87.5%", points: 1840, badge: "Elite Contender" }
+        ];
+
+        let activeQuiz = {
+            subject: 'Mathematics',
+            year: '2016',
+            questions: [],
+            currentIndex: 0,
+            selectedAnswers: {},
+            score: 0,
+            timerInterval: null,
+            timeLeft: 900
+        };
+
+        window.onload = function() {
+            renderDashboardSubjects();
+            renderVaultGrid();
+            renderLeaderboard();
+            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                toggleDarkMode();
+            }
+        };
+
+        function switchTab(tabId) {
+            currentTab = tabId;
+            const tabs = ['dashboard', 'vault', 'practice', 'ai-tutor', 'reader', 'leaderboard'];
+            tabs.forEach(t => {
+                const el = document.getElementById(`tab-${t}`);
+                const nav = document.getElementById(`nav-${t}`);
+                if (t === tabId) {
+                    el.classList.remove('hidden');
+                    if (nav) nav.className = "nav-btn w-full flex items-center space-x-3 px-3.5 py-3 rounded-xl font-medium text-sm transition-all bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400";
+                } else {
+                    el.classList.add('hidden');
+                    if (nav) nav.className = "nav-btn w-full flex items-center space-x-3 px-3.5 py-3 rounded-xl font-medium text-sm transition-all text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60";
+                }
+            });
+            document.querySelector('main').scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            if (isDarkMode) {
+                html.classList.add('dark');
+                icon.className = "fa-solid fa-sun";
+            } else {
+                html.classList.remove('dark');
+                icon.className = "fa-solid fa-moon";
+            }
+        }
+
+        function renderDashboardSubjects() {
+            const grid = document.getElementById('dashboard-subjects-grid');
+            grid.innerHTML = subjectsData.slice(0, 4).map(sub => `
+                <div class="glass-card p-5 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr ${sub.color} text-white flex items-center justify-center text-lg shadow-md">
+                            <i class="fa-solid ${sub.icon}"></i>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400">
+                            Cached Offline
+                        </span>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 dark:text-white text-base">${sub.name}</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">${sub.count} Entrance Questions</p>
+                    </div>
+                    <button onclick="quickStartSubject('${sub.name}')" class="w-full py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-indigo-600 hover:text-white text-slate-700 dark:text-slate-200 font-semibold text-xs transition-all">
+                        Practice Questions
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function renderVaultGrid(filterCat = 'all', searchQuery = '') {
+            const grid = document.getElementById('vault-grid');
+            let filtered = subjectsData;
+            if (filterCat !== 'all') filtered = filtered.filter(s => s.category === filterCat);
+            if (searchQuery) filtered = filtered.filter(s => s.name.toLowerCase().includes(searchQuery.toLowerCase()));
+
+            grid.innerHTML = filtered.map(sub => `
+                <div class="glass-card p-6 rounded-3xl shadow-sm flex flex-col justify-between space-y-4">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr ${sub.color} text-white flex items-center justify-center text-lg shadow-md">
+                                <i class="fa-solid ${sub.icon}"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 dark:text-white text-base">${sub.name}</h4>
+                                <span class="text-xs text-slate-400">${sub.category}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-medium">
+                            <span>IndexedDB Size</span>
+                            <span>~48 MB</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-medium">
+                            <span>Questions Ready</span>
+                            <span class="font-bold text-slate-800 dark:text-slate-200">${sub.count} Items</span>
+                        </div>
+                    </div>
+                    <div class="pt-2 flex items-center space-x-2">
+                        <button onclick="toggleDownload('${sub.id}')" class="flex-1 py-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-semibold text-xs border border-emerald-200 dark:border-emerald-800 flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>IndexedDB Synced</span>
+                        </button>
+                        <button onclick="quickStartSubject('${sub.name}')" class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-semibold text-xs transition-all">
+                            Quiz
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterVaultCategory(cat) {
+            document.querySelectorAll('.vault-cat-btn').forEach(btn => {
+                btn.className = "vault-cat-btn px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition-all text-xs font-medium";
+            });
+            event.target.className = "vault-cat-btn px-3.5 py-2 rounded-xl bg-indigo-600 text-white transition-all text-xs font-medium shadow-md";
+            renderVaultGrid(cat, document.getElementById('vault-search').value);
+        }
+
+        function filterVault() {
+            renderVaultGrid('all', document.getElementById('vault-search').value);
+        }
+
+        function toggleDownload(id) {
+            showToast(`Repository ${id} successfully verified in local IndexedDB store.`);
+        }
+
+        function downloadAllPacks() {
+            showToast("All subject repositories synchronized to client IndexedDB storage.");
+        }
+
+        function quickStartSubject(subName) {
+            switchTab('practice');
+            const select = document.getElementById('quiz-subject-select');
+            for (let i = 0; i < select.options.length; i++) {
+                if (select.options[i].text.includes(subName) || select.options[i].value === subName) {
+                    select.selectedIndex = i;
+                    break;
+                }
+            }
+            startQuizSession();
+        }
+
+        function startQuizSession() {
+            const subject = document.getElementById('quiz-subject-select').value;
+            const year = document.getElementById('quiz-year-select').value;
+            let qList = quizQuestionsBank[subject] || quizQuestionsBank['Mathematics'];
+
+            activeQuiz = { subject, year, questions: qList, currentIndex: 0, selectedAnswers: {}, score: 0, timeLeft: 900 };
+
+            document.getElementById('quiz-setup-view').classList.add('hidden');
+            document.getElementById('quiz-results-view').classList.add('hidden');
+            document.getElementById('quiz-active-view').classList.remove('hidden');
+            document.getElementById('quiz-badge-subject').innerText = `${subject} (${year} E.C.)`;
+
+            startQuizTimer();
+            renderCurrentQuestion();
+        }
+
+        function startQuizTimer() {
+            if (activeQuiz.timerInterval) clearInterval(activeQuiz.timerInterval);
+            activeQuiz.timerInterval = setInterval(() => {
+                activeQuiz.timeLeft--;
+                const mins = Math.floor(activeQuiz.timeLeft / 60);
+                const secs = activeQuiz.timeLeft % 60;
+                document.getElementById('quiz-timer').innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                if (activeQuiz.timeLeft <= 0) {
+                    clearInterval(activeQuiz.timerInterval);
+                    finishQuiz();
+                }
+            }, 1000);
+        }
+
+        function renderCurrentQuestion() {
+            const q = activeQuiz.questions[activeQuiz.currentIndex];
+            document.getElementById('quiz-progress-text').innerText = `Question ${activeQuiz.currentIndex + 1} of ${activeQuiz.questions.length}`;
+            document.getElementById('quiz-question-title').innerText = q.question;
+
+            const optionsList = document.getElementById('quiz-options-list');
+            const selectedOpt = activeQuiz.selectedAnswers[activeQuiz.currentIndex];
+            const isAnswered = selectedOpt !== undefined;
+
+            optionsList.innerHTML = q.options.map((opt, idx) => {
+                let btnStyle = "bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-100 border-slate-200 dark:border-slate-700 hover:bg-indigo-50 dark:hover:bg-slate-700";
+                if (isAnswered) {
+                    if (idx === q.correct) btnStyle = "bg-emerald-50 dark:bg-emerald-950/60 border-emerald-500 text-emerald-900 dark:text-emerald-200 font-bold";
+                    else if (idx === selectedOpt) btnStyle = "bg-rose-50 dark:bg-rose-950/60 border-rose-500 text-rose-900 dark:text-rose-200";
+                    else btnStyle = "opacity-50 bg-slate-100 dark:bg-slate-800 text-slate-500 border-slate-200 dark:border-slate-800";
+                }
+                return `
+                    <button onclick="selectOption(${idx})" ${isAnswered ? 'disabled' : ''} class="w-full text-left p-4 rounded-2xl border transition-all flex items-center justify-between ${btnStyle}">
+                        <span class="text-sm font-medium"><span class="font-bold mr-2 text-indigo-600 dark:text-indigo-400">${String.fromCharCode(65 + idx)}.</span> ${opt}</span>
+                        ${isAnswered && idx === q.correct ? '<i class="fa-solid fa-circle-check text-emerald-500 text-lg"></i>' : ''}
+                    </button>
+                `;
+            }).join('');
+
+            const expBox = document.getElementById('quiz-explanation-box');
+            if (isAnswered) {
+                expBox.classList.remove('hidden');
+                document.getElementById('quiz-explanation-text').innerText = q.explanation;
+            } else {
+                expBox.classList.add('hidden');
+            }
+
+            document.getElementById('quiz-prev-btn').disabled = activeQuiz.currentIndex === 0;
+            document.getElementById('quiz-next-btn').innerText = (activeQuiz.currentIndex === activeQuiz.questions.length - 1) ? "Finish Quiz" : "Next Question";
+        }
+
+        function selectOption(idx) {
+            activeQuiz.selectedAnswers[activeQuiz.currentIndex] = idx;
+            if (idx === activeQuiz.questions[activeQuiz.currentIndex].correct) activeQuiz.score++;
+            renderCurrentQuestion();
+        }
+
+        function nextQuestion() {
+            if (activeQuiz.currentIndex < activeQuiz.questions.length - 1) {
+                activeQuiz.currentIndex++;
+                renderCurrentQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function prevQuestion() {
+            if (activeQuiz.currentIndex > 0) {
+                activeQuiz.currentIndex--;
+                renderCurrentQuestion();
+            }
+        }
+
+        function finishQuiz() {
+            clearInterval(activeQuiz.timerInterval);
+            document.getElementById('quiz-active-view').classList.add('hidden');
+            document.getElementById('quiz-results-view').classList.remove('hidden');
+
+            const total = activeQuiz.questions.length;
+            const percent = Math.round((activeQuiz.score / total) * 100);
+            document.getElementById('result-score-percent').innerText = `${percent}%`;
+            document.getElementById('result-correct-count').innerText = `${activeQuiz.score} / ${total}`;
+            const timeSpentSecs = 900 - activeQuiz.timeLeft;
+            document.getElementById('result-time-taken').innerText = `${Math.floor(timeSpentSecs / 60)}m ${timeSpentSecs % 60}s`;
+        }
+
+        function quitQuiz() {
+            clearInterval(activeQuiz.timerInterval);
+            resetQuizSetup();
+        }
+
+        function resetQuizSetup() {
+            document.getElementById('quiz-active-view').classList.add('hidden');
+            document.getElementById('quiz-results-view').classList.add('hidden');
+            document.getElementById('quiz-setup-view').classList.remove('hidden');
+        }
+
+        function toggleBookmarkCurrent() {
+            showToast("Question successfully bookmarked to your review vault.");
+        }
+
+        function handleChatSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('chat-input');
+            const prompt = input.value.trim();
+            if (!prompt) return;
+            appendChatMessage(prompt, 'user');
+            input.value = '';
+            setTimeout(() => {
+                appendChatMessage(`Analyzing your query regarding "${prompt}" within the Ethiopian National Curriculum standards... Step-by-step breakdown generated successfully from local IndexedDB weights.`, 'ai');
+            }, 800);
+        }
+
+        function sendPresetPrompt(text) {
+            document.getElementById('chat-input').value = text;
+            handleChatSubmit({ preventDefault: () => {} });
+        }
+
+        function appendChatMessage(text, sender) {
+            const container = document.getElementById('chat-messages');
+            const isAI = sender === 'ai';
+            const div = document.createElement('div');
+            div.className = `flex items-start space-x-3 ${isAI ? '' : 'flex-row-reverse space-x-reverse'}`;
+            div.innerHTML = `
+                <div class="w-10 h-10 rounded-xl ${isAI ? 'bg-indigo-600' : 'bg-slate-700'} text-white flex items-center justify-center font-bold flex-shrink-0 shadow-md">
+                    <i class="fa-solid ${isAI ? 'fa-robot' : 'fa-user'}"></i>
+                </div>
+                <div class="glass-card p-4 rounded-2xl ${isAI ? 'rounded-tl-none' : 'rounded-tr-none bg-indigo-50/80 dark:bg-indigo-950/80'} max-w-xl text-sm space-y-1">
+                    <p class="font-semibold ${isAI ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300'}">${isAI ? 'Chkela AI Tutor' : 'You'}</p>
+                    <p class="text-slate-700 dark:text-slate-200 whitespace-pre-line">${text}</p>
+                </div>
+            `;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function openDocumentReader(title, content) {
+            document.getElementById('document-modal').classList.remove('hidden');
+            document.getElementById('modal-doc-title').innerText = title;
+            document.getElementById('modal-doc-content').innerText = content;
+        }
+
+        function closeDocumentReader() {
+            document.getElementById('document-modal').classList.add('hidden');
+        }
+
+        function renderLeaderboard() {
+            const list = document.getElementById('leaderboard-list');
+            list.innerHTML = leaderboardUsers.map(u => `
+                <div class="p-4 lg:p-5 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/45 transition-colors">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-10 h-10 rounded-xl ${u.rank === 1 ? 'bg-amber-100 text-amber-600' : 'bg-slate-200 text-slate-700'} font-bold flex items-center justify-center shadow-sm">
+                            #${u.rank}
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white text-sm">${u.name}</h4>
+                            <p class="text-xs text-slate-500"><i class="fa-solid fa-location-dot mr-1"></i>${u.region}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="hidden sm:inline px-3 py-1 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 text-xs font-semibold">${u.badge}</span>
+                        <div class="text-right">
+                            <span class="font-bold text-slate-900 dark:text-white text-sm">${u.score}</span>
+                            <p class="text-[10px] text-slate-400">${u.points} XP</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = "pointer-events-auto bg-slate-900/90 dark:bg-white/90 backdrop-blur-md text-white dark:text-slate-900 px-4 py-3 rounded-2xl shadow-2xl text-xs font-semibold flex items-center space-x-2 transform translate-y-2 opacity-0 transition-all duration-300";
+            toast.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i><span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.remove('translate-y-2', 'opacity-0'), 10);
+            setTimeout(() => {
+                toast.classList.add('translate-y-2', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
